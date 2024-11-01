@@ -44,7 +44,7 @@ config.window_close_confirmation = "NeverPrompt"
 config.window_background_opacity = 1.0
 config.text_background_opacity = 1.0
 config.macos_window_background_blur = 60
-config.window_decorations = "RESIZE"
+config.window_decorations = "TITLE|RESIZE"
 
 --color_scheme
 -- config.color_scheme = "Catppuccin Frappe"

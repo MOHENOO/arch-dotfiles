@@ -43,8 +43,6 @@ yes | sudo pacman -Sy git-delta
 ## Tpm
 mkdir -p ~/.config/tmux/plugins
 [ ! -d "$HOME/.config/tmux/plugins/tpm" ] && git clone --depth=1 https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-## Installing Fonts
-# curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.4/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
 
 # Copying and checking out configuration files
 echo "Planting Configuration Files..."
