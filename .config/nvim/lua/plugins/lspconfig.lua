@@ -1,4 +1,5 @@
 return {
+  { "direnv/direnv.vim", lazy = false },
   {
     "neovim/nvim-lspconfig",
     ---@class PluginLspOpts
@@ -9,7 +10,6 @@ return {
       codelens = {
         enabled = true,
       },
-      ---@type lspconfig.options
     },
   },
 }

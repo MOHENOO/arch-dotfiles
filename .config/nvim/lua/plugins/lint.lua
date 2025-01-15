@@ -7,7 +7,6 @@ return {
       -- bash = { "shellcheck" },
       -- sh = { "shellcheck" },
       -- yaml = { "yamllint" },
-      zsh = { "zsh" },
       -- markdown = { "markdownlint" },
       -- json = { "jsonlint" },
     },

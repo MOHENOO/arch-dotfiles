@@ -1,25 +1,72 @@
+-- stylua: ignore
+if true then return {} end
+
 return {
-  {
-    "David-Kunz/gen.nvim",
-    opts = {
-      -- model = "codellama:34b-instruct", -- The default model to use.
-      model = "codellama:instruct", -- The default model to use.
-      display_mode = "float", -- The display mode. Can be "float" or "split".
-      show_prompt = false, -- Shows the Prompt submitted to Ollama.
-      show_model = false, -- Displays which model you are using at the beginning of your chat session.
-      no_auto_close = false, -- Never closes the window automatically.
-      init = function(options)
-        pcall(io.popen, "ollama serve > /dev/null 2>&1 &")
-      end,
-      -- Function to initialize Ollama
-      -- command = "curl --silent --no-buffer -X POST http://192.168.100.111:19434/api/generate -d $body",
-      command = "curl --silent --no-buffer -X POST http://192.168.100.110:11434/api/generate -d $body",
-      -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
-      -- This can also be a lua function returning a command string, with options as the input parameter.
-      -- The executed command must return a JSON object with { response, context }
-      -- (context property is optional).
-      list_models = "<omitted lua function>", -- Retrieves a list of model names
-      debug = false, -- Prints errors and the command which is run.
+  "yetone/avante.nvim",
+  event = "VeryLazy",
+  build = "make",
+  opts = {
+    provider = "ollama",
+    vendors = {
+      ollama = {
+        __inherited_from = "openai",
+        api_key_name = "",
+        endpoint = "http://192.168.100.110:11434/v1",
+        -- model = "qwen2.5-coder:14b-instruct-q4_K_M",
+        model = "mistral-nemo:12b-instruct-2407-q4_K_M",
+        parse_response_data = function(data_stream, event_state, opts)
+          require("avante.providers").copilot.parse_response(data_stream, event_state, opts)
+        end,
+        parse_curl_args = function(opts, code_opts)
+          return {
+            url = opts.endpoint .. "/chat/completions",
+            headers = {
+              ["Accept"] = "application/json",
+              ["Content-Type"] = "application/json",
+            },
+            body = {
+              model = opts.model,
+              messages = require("avante.providers").copilot.parse_messages(code_opts),
+              max_tokens = 2048,
+              stream = true,
+            },
+          }
+        end,
+      },
+    },
+  },
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter",
+    "stevearc/dressing.nvim",
+    "nvim-lua/plenary.nvim",
+    "MunifTanjim/nui.nvim",
+    --- The below dependencies are optional,
+    "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+    -- "zbirenbaum/copilot.lua", -- for providers='copilot'
+    {
+      -- support for image pasting
+      "HakonHarnes/img-clip.nvim",
+      event = "VeryLazy",
+      opts = {
+        -- recommended settings
+        default = {
+          embed_image_as_base64 = false,
+          prompt_for_file_name = false,
+          drag_and_drop = {
+            insert_mode = true,
+          },
+          -- required for Windows users
+          use_absolute_path = true,
+        },
+      },
+    },
+    {
+      -- Make sure to set this up properly if you have lazy=true
+      "MeanderingProgrammer/render-markdown.nvim",
+      opts = {
+        file_types = { "markdown", "Avante" },
+      },
+      ft = { "markdown", "Avante" },
     },
   },
 }

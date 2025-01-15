@@ -36,15 +36,12 @@ alias ls="eza --icons"
 alias vim=nvim
 alias cat="bat -p -P"
 alias ssh="TERM=xterm-256color zssh"
-alias ofd='open_command $PWD'
-alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 alias k="kubectl"
 
 ####################################### bindkey ##############################################
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-bindkey '^r' atuin-search
 
 ####################################### export ###############################################
 # set language
@@ -72,7 +69,6 @@ export PATH=${HOME}/.local/bin:$PATH
 function set_dark_theme(){
     export FZF_DEFAULT_OPTS="--color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf --color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
     export BAT_THEME="Catppuccin Frappe"
-    fast-theme XDG:catppuccin-frappe > /dev/null
     tmux set -g @catppuccin_flavour 'frappe'
     tmux source-file ~/.config/tmux/tmux.conf >/dev/null
     sed -i '' 's/palette = \"catppuccin_latte\"/palette = \"catppuccin_frappe\"/g' ~/Github/dotfiles/.config/starship.toml > /dev/null
@@ -83,7 +79,6 @@ function set_dark_theme(){
 function set_light_theme(){
     export FZF_DEFAULT_OPTS="--color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39"
     export BAT_THEME="Catppuccin Latte"
-    fast-theme XDG:catppuccin-latte > /dev/null
 
     tmux set -g @catppuccin_flavour 'latte'
     tmux source-file ~/.config/tmux/tmux.conf >/dev/null
@@ -95,7 +90,6 @@ function set_light_theme(){
 ############################################## other ##################################################
 # fzf
 eval "$(fzf --zsh)"
-export FZF_TMUX_OPTS='-p80%,60%'
 
 # zoxide
 eval "$(zoxide init zsh)"
@@ -105,22 +99,17 @@ eval "$(starship init zsh)"
 
 # forgit
 ## disable forgit alias
-export FORGIT_NO_ALIASES="yes"
-export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
+# export FORGIT_NO_ALIASES="yes"
+# export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
 
 # proxy
 function proxy () {
-  export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;export ALL_PROXY=socks5://127.0.0.1:1087
+  export http_proxy=socks5://127.0.0.1:12345;export https_proxy=socks5://127.0.0.1:12345;export ALL_PROXY=socks5://127.0.0.1:12345
 }
 function unproxy () {
   unset http_proxy && unset https_proxy && unset ALL_PROXY
 }
 
-
-# atuin
-export ATUIN_NOBIND="true"
-eval "$(atuin init zsh)"
-source <(atuin gen-completions -s zsh)
 
 # kubectl
 source <(kubectl completion zsh)
@@ -133,9 +122,6 @@ source <(kubectl completion zsh)
 export K9S_CONFIG_DIR=$HOME/.config/k9s
 source <(k9s completion zsh)
 
-# k8s
-# export KUBECONFIG=~/.kube/config
-# [ -d ~/Work/kubeconfig ] && export KUBECONFIG=$KUBECONFIG:~/Work/kubeconfig/beijing-kubeconfig:~/Work/kubeconfig/guangzhou-kubeconfig:~/Work/kubeconfig/shanghai-kubeconfig:~/Work/kubeconfig/beijing-test-kubeconfig
 source <(switcher init zsh)
 source <(switch completion zsh)
 alias kc=switch
