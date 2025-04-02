@@ -42,6 +42,8 @@ alias k="kubectl"
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+#bindkey -M emacs '^P' history-substring-search-up
+#bindkey -M emacs '^N' history-substring-search-down
 
 ####################################### export ###############################################
 # set language
@@ -64,6 +66,12 @@ else
 fi
 export XDG_CONFIG_HOME=$HOME/.config
 export PATH=${HOME}/.local/bin:$PATH
+
+# abbr
+export ABBR_GET_AVAILABLE_ABBREVIATION=1
+export ABBR_LOG_AVAILABLE_ABBREVIATION=1
+export ABBR_EXPAND_PUSH_ABBREVIATION_TO_HISTORY=1
+export ABBR_EXPAND_AND_ACCEPT_PUSH_ABBREVIATED_LINE_TO_HISTORY=1
 
 ############################################# autotheme #######################################
 function set_dark_theme(){
@@ -89,7 +97,7 @@ function set_light_theme(){
 
 ############################################## other ##################################################
 # fzf
-eval "$(fzf --zsh)"
+source <(fzf --zsh)
 
 # zoxide
 eval "$(zoxide init zsh)"
@@ -122,6 +130,9 @@ source <(kubectl completion zsh)
 export K9S_CONFIG_DIR=$HOME/.config/k9s
 source <(k9s completion zsh)
 
+# k8s
+# export KUBECONFIG=~/.kube/config
+# [ -d ~/Work/kubeconfig ] && export KUBECONFIG=$KUBECONFIG:~/Work/kubeconfig/beijing-kubeconfig:~/Work/kubeconfig/guangzhou-kubeconfig:~/Work/kubeconfig/shanghai-kubeconfig:~/Work/kubeconfig/beijing-test-kubeconfig
 source <(switcher init zsh)
 source <(switch completion zsh)
 alias kc=switch
