@@ -21,3 +21,4 @@ zsh-users/zsh-autosuggestions kind:defer
 olets/zsh-abbr kind:defer
 olets/zsh-autosuggestions-abbreviations-strategy kind:defer
 
+wfxr/forgit
