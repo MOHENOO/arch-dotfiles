@@ -29,6 +29,7 @@ yes | sudo pacman -Sy go
 yes | sudo pacman -Sy btop
 yes | sudo pacman -Sy git-delta
 yes | sudo pacman -Sy kubectl
+yes | sudo pacman -Sy yazi
 
 # Git Clone Repo
 ## Tpm
