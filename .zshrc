@@ -137,3 +137,4 @@ source <(switcher init zsh)
 source <(switch completion zsh)
 alias kc=switch
 alias kn="switch namespace"
+export HISTFILE=$HOME/.zsh_history
