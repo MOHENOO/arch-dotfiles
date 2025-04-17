@@ -25,4 +25,27 @@ return {
       }
     end,
   },
+  {"f-person/auto-dark-mode.nvim",
+    opts = function ()
+      local mode="dark"
+      local handle = io.popen("date +%H")
+      local result = tonumber(handle:read("*a"))
+      handle:close()
+
+      if result > 8 and result < 19 then
+        mode="light"
+      end
+
+      return {
+        set_dark_mode = function()
+            vim.api.nvim_set_option_value("background", "dark", {})
+        end,
+        set_light_mode = function()
+            vim.api.nvim_set_option_value("background", "light", {})
+        end,
+        update_interval = 3000,
+        fallback = mode
+      }
+    end,
+  },
 }
