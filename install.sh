@@ -43,3 +43,4 @@ mkdir -p "$HOME"/.kube
 [ ! -d "$HOME/.gitconfig" ] && cp "$HOME"/Github/dotfiles/.gitconfig "$HOME"/.gitconfig
 mkdir -p "$HOME"/.config
 stow -v --target "$HOME" .
+git clone https://github.com/LazyVim/starter ~/.config/nvim
