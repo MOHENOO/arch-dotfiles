@@ -17,6 +17,7 @@ yes | sudo pacman -Sy fzf
 # editor
 yes | sudo pacman -Sy neovim
 yes | sudo pacman -Sy tree-sitter
+yes | sudo pacman -Sy tree-sitter-cli
 yes | sudo pacman -Sy python-pip
 yes | sudo pacman -Sy nodejs
 yes | sudo pacman -Sy npm
