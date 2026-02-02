@@ -51,7 +51,7 @@ mkdir -p "$HOME"/.ssh
 [ ! -d "$HOME/.gitconfig" ] && cp "$HOME"/Github/dotfiles/.gitconfig "$HOME"/.gitconfig
 
 # lazyvim
-[ ! -d "$HOME/.config/nvim" ] && git clone https://github.com/LazyVim/starter ~/.config/nvim
+# [ ! -d "$HOME/.config/nvim" ] && git clone https://github.com/LazyVim/starter ~/.config/nvim
 
 # stow
 mkdir -p "$HOME"/.kube
